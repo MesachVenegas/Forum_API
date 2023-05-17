@@ -14,10 +14,12 @@ const Answers = db.define('answers',{
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'user_id',
     },
     postId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'post_id',
     },
 },{
     timestamps: true,
