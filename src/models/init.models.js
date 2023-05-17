@@ -15,7 +15,8 @@ const initModel = () => {
     Answers.belongsTo(Users, { foreignKey: 'user_id'});
     Users.hasMany(Answers, { foreignKey: 'user_id' });
 
-    //  Un post tiene muchas respuestas.
+    //  Una respuesta le pertenece a una publicación y una publicación tiene muchas respuestas.
+    Answers.belongsTo(Posts, { foreignKey: 'post_id'})
     Posts.hasMany(Answers, { foreignKey: 'post_id' });
 
     // Un post es creado(le pertenece) a un usuario. y un usario puede crear muchos posts.
@@ -24,7 +25,7 @@ const initModel = () => {
 
     // Una publicación pertenece a una categoria y una categoria tiene muchas publicaciones.
     Posts.belongsTo(Categories, { foreignKey: 'category_id' });
-    Categories.hasMany(Categories, { foreignKey: 'category_id' });
+    Categories.hasMany(Posts, { foreignKey: 'category_id' });
 }
 
 module.exports = initModel;
