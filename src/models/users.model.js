@@ -35,8 +35,8 @@ const Users = db.define('users', {
     },
     rolId: {
         type: DataTypes.INTEGER,
+        defaultValue: 3,
         field: 'rol_id',
-        defaultValue: 3
     }
 }, {
     timestamps: true,
