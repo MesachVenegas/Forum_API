@@ -1,13 +1,9 @@
+const userRoutes = require('./src/routes/user.routes');
 const initModel = require('./src/models/init.models');
 const db = require('./src/config/connection');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const Posts = require('./src/models/post.model');
-const Users = require('./src/models/users.model');
-const Categories = require('./src/models/categories.model');
-const Answers = require('./src/models/answers.model');
-const { where } = require('sequelize');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
@@ -16,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
+app.use(userRoutes);
 
 db.authenticate()
     .then(() => console.log("Conectado a la base de datos"))
