@@ -15,11 +15,10 @@ const Users = db.define('users', {
         type: DataTypes.STRING(150),
         field: 'last_name',
     },
-    userName: {
+    username: {
         type: DataTypes.STRING(100),
         allowNull: false,
         unique: true,
-        field: 'user_name'
     },
     email: {
         type: DataTypes.STRING,
