@@ -1,5 +1,6 @@
-const Roles = require('../models/roles.model');
+const Rol = require('../models/roles.model');
 const User = require('../models/users.model');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
@@ -39,7 +40,7 @@ class UserService {
         try {
             // * Validamos que el usuario solicitado exista.
             const user = await User.findOne({
-                where: { email: reqEmail },
+                where: { email: reqEmail }
             });
             // * Si el usario no existe en la base de datos se envía un mensaje de error.
             if (!user) {
@@ -61,7 +62,17 @@ class UserService {
             }
 
             const { id, firstName, lastName, username, email, rolId, register_at, updated_at } = user;
-            return { id, firstName, lastName, username, email, rolId, register_at, updated_at };
+
+            // * firma de usuario
+            const userData = { id, firstName, lastName, username, email, rolId, register_at, updated_at };
+            const token = await jwt.sign(userData, "thisIsKeyWord", {
+                algorithm: 'HS512',
+                expiresIn: '1h'
+            })
+
+            userData.token = token;
+
+            return userData;
 
         } catch (error) {
             throw error;
