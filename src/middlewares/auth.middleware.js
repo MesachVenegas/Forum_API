@@ -10,12 +10,9 @@ const reqAuth = (req, res, next) => {
                 errorMessage: 'Required access token'
             })
         }
-
-        // ! decodificación el token de acceso.
         const decodedToken = jwt.verify(token, "thisIsKeyWord", {
             algorithms: 'HS512'
         })
-
         req.user = decodedToken;
         next();
     } catch (error) {
