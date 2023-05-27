@@ -1,3 +1,5 @@
+const logError = require('./src/middlewares/logError.middleware');
+const errorHandler = require('./src/middlewares/errorHandler.middleware');
 const userRoutes = require('./src/routes/user.routes');
 const postRoutes = require('./src/routes/post.routes');
 const initModel = require('./src/models/init.models');
@@ -15,7 +17,10 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(userRoutes);
 app.use(postRoutes);
-
+// En los controladores de las rutas se generan los errores
+//  Error handlers
+//  Se encarga de capturar todos los errores que vengan de las rutas.
+app.use(logError, errorHandler);
 // Control de error 404
 app.use('*', async (req, res) => {
     res.status(404).json({
